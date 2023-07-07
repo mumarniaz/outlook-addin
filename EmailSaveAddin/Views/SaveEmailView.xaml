@@ -1,0 +1,323 @@
+﻿<UserControl
+    x:Class="EmailSaveAddin.Views.SaveEmailView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/EmailSaveAddin;component/Resources/Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <UserControl.DataContext>
+        <Binding Path="SaveEmail" Source="{StaticResource Locator}" />
+    </UserControl.DataContext>
+
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+            <RowDefinition Height="70" />
+        </Grid.RowDefinitions>
+
+        <TextBlock
+            VerticalAlignment="Center"
+            FontSize="14"
+            FontWeight="Bold"
+            Text="Save Communication in Pinnakl CRM" />
+
+        <Border
+            Grid.Row="1"
+            Margin="0,10,0,0"
+            BorderBrush="LightGray"
+            BorderThickness="1"
+            CornerRadius="4">
+            <Grid Margin="10,10,0,20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <StackPanel>
+                    <TextBlock
+                        FontWeight="SemiBold"
+                        Foreground="Gray"
+                        Text="ORGANIZATION" />
+                    <ComboBox
+                        Width="200"
+                        HorizontalAlignment="Left"
+                        materialDesign:HintAssist.Hint="Select Organization"
+                        IsEditable="True">
+                        <ComboBoxItem Content="Netsoft Holding LLC" FontWeight="Bold" />
+                        <ComboBoxItem Content="Iporium" FontWeight="Bold" />
+                        <ComboBoxItem Content="Iporium Holding" FontWeight="Bold" />
+                    </ComboBox>
+                </StackPanel>
+
+                <StackPanel Grid.Row="1" Margin="0,10,0,0">
+                    <TextBlock
+                        FontWeight="SemiBold"
+                        Foreground="Gray"
+                        Text="SUBJECT" />
+                    <TextBox Width="200" HorizontalAlignment="Left" />
+                </StackPanel>
+
+                <StackPanel Grid.Row="2" Margin="0,10,0,0">
+                    <TextBlock
+                        FontWeight="SemiBold"
+                        Foreground="Gray"
+                        Text="FROM" />
+                    <Border
+                        Name="border"
+                        Width="300"
+                        Height="35"
+                        HorizontalAlignment="Left"
+                        BorderBrush="LightGray"
+                        BorderThickness="0,0,0,1"
+                        Focusable="False">
+                        <Grid>
+                            <ItemsControl
+                                x:Name="itemControl"
+                                Width="{Binding Path=ActualWidth, ElementName=border}"
+                                Focusable="False">
+                                <ItemsControl.Resources>
+                                    <CollectionViewSource x:Key="FromCollection" Source="{Binding Path=From}" />
+                                </ItemsControl.Resources>
+                                <ItemsControl.ItemsSource>
+                                    <CompositeCollection>
+                                        <CollectionContainer Collection="{Binding Source={StaticResource FromCollection}}" />
+                                        <TextBox
+                                            x:Name="fromTxtbox"
+                                            Margin="0,0,0,0"
+                                            Padding="0,0,0,0"
+                                            HorizontalAlignment="Stretch"
+                                            VerticalAlignment="Center"
+                                            materialDesign:TextFieldAssist.CharacterCounterVisibility="Collapsed"
+                                            materialDesign:TextFieldAssist.DecorationVisibility="Collapsed"
+                                            BorderBrush="Transparent"
+                                            BorderThickness="0"
+                                            FontSize="12"
+                                            LostFocus="TextBox_LostFocus"
+                                            MaxLength="30"
+                                            PreviewKeyDown="TextBox_PreviewKeyDown"
+                                            PreviewKeyUp="TextBox_PreviewKeyUp" />
+                                    </CompositeCollection>
+                                </ItemsControl.ItemsSource>
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel
+                                            Background="Transparent"
+                                            Cursor="IBeam"
+                                            PreviewMouseLeftButtonDown="WrapPanel_PreviewMouseLeftButtonDown" />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <materialDesign:Chip
+                                            Content="{Binding}"
+                                            DeleteClick="Chip_DeleteClick"
+                                            Focusable="False"
+                                            FontSize="10"
+                                            IsDeletable="True"
+                                            Style="{StaticResource CustomChipStyle}"
+                                            Tag="FROM" />
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+
+                        </Grid>
+                    </Border>
+                </StackPanel>
+
+                <StackPanel Grid.Row="3" Margin="0,10,0,0">
+                    <TextBlock
+                        FontWeight="SemiBold"
+                        Foreground="Gray"
+                        Text="TO" />
+                    <Border
+                        Name="toBorder"
+                        Width="300"
+                        Height="35"
+                        HorizontalAlignment="Left"
+                        BorderBrush="LightGray"
+                        BorderThickness="0,0,0,1"
+                        Focusable="False">
+                        <Grid>
+                            <ItemsControl Width="{Binding Path=ActualWidth, ElementName=toBorder}" Focusable="False">
+                                <ItemsControl.Resources>
+                                    <CollectionViewSource x:Key="ToCollection" Source="{Binding Path=To}" />
+                                </ItemsControl.Resources>
+                                <ItemsControl.ItemsSource>
+                                    <CompositeCollection>
+                                        <CollectionContainer Collection="{Binding Source={StaticResource ToCollection}}" />
+                                        <TextBox
+                                            x:Name="toTxtbox"
+                                            Margin="0,0,0,0"
+                                            Padding="0,0,0,0"
+                                            HorizontalAlignment="Stretch"
+                                            VerticalAlignment="Center"
+                                            materialDesign:TextFieldAssist.CharacterCounterVisibility="Collapsed"
+                                            materialDesign:TextFieldAssist.DecorationVisibility="Collapsed"
+                                            BorderBrush="Transparent"
+                                            BorderThickness="0"
+                                            FontSize="12"
+                                            LostFocus="TextBox_LostFocus"
+                                            MaxLength="30"
+                                            PreviewKeyDown="TextBox_PreviewKeyDown"
+                                            PreviewKeyUp="TextBox_PreviewKeyUp" />
+                                    </CompositeCollection>
+                                </ItemsControl.ItemsSource>
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel
+                                            Background="Transparent"
+                                            Cursor="IBeam"
+                                            PreviewMouseLeftButtonDown="WrapPanel_PreviewMouseLeftButtonDown" />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <materialDesign:Chip
+                                            Content="{Binding}"
+                                            DeleteClick="Chip_DeleteClick"
+                                            Focusable="False"
+                                            FontSize="10"
+                                            IsDeletable="True"
+                                            Style="{StaticResource CustomChipStyle}"
+                                            Tag="TO" />
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+
+                        </Grid>
+                    </Border>
+                </StackPanel>
+
+                <StackPanel Grid.Row="4" Margin="0,10,0,0">
+                    <TextBlock
+                        FontWeight="SemiBold"
+                        Foreground="Gray"
+                        Text="CC" />
+                    <Border
+                        Name="ccBorder"
+                        Width="300"
+                        Height="35"
+                        HorizontalAlignment="Left"
+                        BorderBrush="LightGray"
+                        BorderThickness="0,0,0,1"
+                        Focusable="False">
+                        <Grid>
+                            <ItemsControl Width="{Binding Path=ActualWidth, ElementName=ccBorder}" Focusable="False">
+                                <ItemsControl.Resources>
+                                    <CollectionViewSource x:Key="CcCollection" Source="{Binding Path=Cc}" />
+                                </ItemsControl.Resources>
+                                <ItemsControl.ItemsSource>
+                                    <CompositeCollection>
+                                        <CollectionContainer Collection="{Binding Source={StaticResource CcCollection}}" />
+                                        <TextBox
+                                            x:Name="ccTxtbox"
+                                            Margin="0,0,0,0"
+                                            Padding="0,0,0,0"
+                                            HorizontalAlignment="Stretch"
+                                            VerticalAlignment="Center"
+                                            materialDesign:TextFieldAssist.CharacterCounterVisibility="Collapsed"
+                                            materialDesign:TextFieldAssist.DecorationVisibility="Collapsed"
+                                            BorderBrush="Transparent"
+                                            BorderThickness="0"
+                                            FontSize="12"
+                                            LostFocus="TextBox_LostFocus"
+                                            MaxLength="30"
+                                            PreviewKeyDown="TextBox_PreviewKeyDown"
+                                            PreviewKeyUp="TextBox_PreviewKeyUp" />
+                                    </CompositeCollection>
+                                </ItemsControl.ItemsSource>
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel
+                                            Background="Transparent"
+                                            Cursor="IBeam"
+                                            PreviewMouseLeftButtonDown="WrapPanel_PreviewMouseLeftButtonDown" />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <materialDesign:Chip
+                                            Content="{Binding}"
+                                            DeleteClick="Chip_DeleteClick"
+                                            Focusable="False"
+                                            FontSize="10"
+                                            IsDeletable="True"
+                                            Style="{StaticResource CustomChipStyle}"
+                                            Tag="CC" />
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+
+                        </Grid>
+                    </Border>
+                </StackPanel>
+
+            </Grid>
+        </Border>
+
+        <TextBlock
+            Grid.Row="2"
+            Margin="0,10,0,0"
+            Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque et convallis quam, eu gravida velit. Phasellus pulvinar odio eros, sed semper velit blandit nec. Phasellus egestas faucibus convallis. Aenean quam quam, euismod at ante quis, facilisis elementum eros. Integer nec rhoncus velit. Nulla odio ligula, interdum ac nisi vel, interdum varius ligula. Integer malesuada, quam nec scelerisque porta, orci felis aliquet dolor, et placerat felis tortor id tellus. Fusce fringilla euismod magna, ut tristique lacus imperdiet sit amet. Morbi euismod eros ac ante bibendum, in ultrices odio varius. Cras mauris orci, facilisis ac felis at, tempus sollicitudin lectus. Donec et ipsum elit. Quisque luctus ornare magna. Sed malesuada, ante ac ultrices tempus, odio diam molestie tellus, sed rutrum orci dui sed odio. Mauris ac urna sit amet nisl gravida faucibus et quis elit. Morbi venenatis cursus ullamcorper. Mauris urna tellus, aliquet a libero eu, posuere tempus felis."
+            TextWrapping="Wrap" />
+
+        <Grid Grid.Row="3">
+            <Separator
+                Grid.Row="3"
+                VerticalAlignment="Top"
+                BorderBrush="LightGray"
+                BorderThickness="1.5" />
+
+            <Button
+                Width="80"
+                Height="26"
+                HorizontalAlignment="Left"
+                BorderBrush="LightGray"
+                Command="{Binding LogoutCommand}"
+                Content="Logout"
+                FontSize="12"
+                Foreground="Black"
+                Style="{StaticResource MaterialDesignOutlinedLightButton}" />
+
+
+            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                <Button
+                    Height="26"
+                    HorizontalAlignment="Left"
+                    BorderBrush="LightGray"
+                    Command="{Binding SaveCommand}"
+                    Content="Save Attachment"
+                    FontSize="12"
+                    Foreground="Black"
+                    Style="{StaticResource MaterialDesignOutlinedLightButton}" />
+
+                <Button
+                    Width="80"
+                    Height="26"
+                    Margin="15,0,0,0"
+                    HorizontalAlignment="Left"
+                    Command="{Binding SaveCommand}"
+                    Content="Save"
+                    FontSize="12" />
+            </StackPanel>
+
+        </Grid>
+
+    </Grid>
+</UserControl>
