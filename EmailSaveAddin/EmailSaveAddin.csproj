@@ -192,6 +192,8 @@
   -->
   <ItemGroup>
     <Compile Include="Converters\BoolToInverseVisibilityConverter.cs" />
+    <Compile Include="Converters\EmailToBackgroundColorConverter.cs" />
+    <Compile Include="Converters\EmailToForegroundColorConverter.cs" />
     <Compile Include="Extensions\ControlExtension.cs" />
     <Compile Include="Helpers\MessengerHelper.cs" />
     <Compile Include="Helpers\Utilities.cs" />
@@ -201,6 +203,7 @@
     <Compile Include="Host\TaskPaneWpfControlHost.Designer.cs">
       <DependentUpon>TaskPaneWpfControlHost.cs</DependentUpon>
     </Compile>
+    <Compile Include="Messages\ClosePaneMessage.cs" />
     <Compile Include="Messages\LoginMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

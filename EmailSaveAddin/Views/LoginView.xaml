@@ -109,6 +109,14 @@
             IsDefault="True"
             IsEnabled="{Binding IsActive, Converter={StaticResource BoolToInverseVisibilityConverter}}" />
 
+        <TextBlock
+            Grid.Row="2"
+            Margin="0,5,0,0"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Foreground="Red"
+            Text="Wrong username or password"
+            Visibility="{Binding IsError, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
         <StackPanel
             Grid.Row="2"

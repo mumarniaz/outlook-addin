@@ -49,6 +49,14 @@ namespace EmailSaveAddin.ViewModel
             }
         }
 
+        private bool _isError;
+        public bool IsError
+        {
+            get { return _isError; }
+            set { _isError = value;  RaisePropertyChanged(() => IsError); }
+        }
+
+
         public LoginViewModel( )
         {
             SignInCommand = new RelayCommand(ExecuteSignIn, CanExecute);
@@ -58,6 +66,7 @@ namespace EmailSaveAddin.ViewModel
             UserName = "testemail@gmail.com";
 #endif
             IsActive = false;
+            IsError = false;
         }
 
         #region PasswordChangeCommand
@@ -92,9 +101,17 @@ namespace EmailSaveAddin.ViewModel
 
         public async void ExecuteSignIn()
         {
+            IsError = false;
             IsActive = true;
 
             await Task.Delay(2000);
+
+            if (Password == "1234")
+            {
+                IsError = true;
+                IsActive = false;
+                return;
+            }
 
             MessengerHelper.BroadcastMessage(new LoginMessage() { IsLoggedIn = true });
 

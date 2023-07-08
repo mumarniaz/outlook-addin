@@ -40,6 +40,7 @@ namespace EmailSaveAddin.ViewModel
         public void ExecuteSaveCommand()
         {
             MessageBox.Show("Saved successfully!", "Addin", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessengerHelper.BroadcastMessage(new ClosePaneMessage());
         }
 
         #endregion

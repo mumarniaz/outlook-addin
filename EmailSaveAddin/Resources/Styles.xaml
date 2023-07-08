@@ -15,7 +15,6 @@
         <Setter Property="HorizontalAlignment" Value="Left" />
         <Setter Property="FontSize" Value="12" />
         <Setter Property="Background" Value="#236378FF" />
-        <Setter Property="Foreground" Value="{DynamicResource PrimaryHueMidBrush}" />
         <Setter Property="Cursor" Value="Hand" />
         <Setter Property="Margin" Value="4" />
         <Setter Property="Template">
@@ -41,7 +40,7 @@
                             ContentTemplate="{TemplateBinding ContentTemplate}"
                             ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}"
                             FontWeight="SemiBold"
-                            Foreground="{DynamicResource PrimaryHueMidBrush}"
+                            Foreground="{TemplateBinding Foreground}"
                             IsTabStop="False">
                             <ContentControl.Resources>
                                 <Style TargetType="{x:Type TextBlock}">

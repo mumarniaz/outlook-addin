@@ -1,5 +1,7 @@
 ﻿using EmailSaveAddin.Helpers;
 using EmailSaveAddin.Host;
+using EmailSaveAddin.Messages;
+using GalaSoft.MvvmLight.Messaging;
 using Microsoft.Office.Interop.Outlook;
 using Microsoft.Office.Tools;
 using System;
@@ -22,6 +24,16 @@ namespace EmailSaveAddin
 
         public Ribbon1()
         {
+            Messenger.Default.Register<ClosePaneMessage>(this, OnClosePaneMessageReceived);
+        }
+
+        private void OnClosePaneMessageReceived(ClosePaneMessage obj)
+        {
+            if (_taskPane != null
+                && _taskPane.Visible)
+            {
+                _taskPane.Visible = false;
+            }
         }
 
         #region IRibbonExtensibility Members
