@@ -14,7 +14,7 @@ namespace EmailSaveAddin.Converters
             // here check if email is a part of database emails list then return blue color. TODO: Remove hard coded list
             if (Utilities.IsInternalEmail(email))
             {
-                return new SolidColorBrush(Colors.Blue);
+                return new SolidColorBrush((Color)ColorConverter.ConvertFromString("#168EFF"));
             }
             return new SolidColorBrush(Colors.LightGray);
 

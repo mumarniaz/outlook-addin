@@ -191,6 +191,7 @@
     can be found.
   -->
   <ItemGroup>
+    <Compile Include="Converters\BoolToHiddenConverter.cs" />
     <Compile Include="Converters\BoolToInverseVisibilityConverter.cs" />
     <Compile Include="Converters\EmailToBackgroundColorConverter.cs" />
     <Compile Include="Converters\EmailToForegroundColorConverter.cs" />

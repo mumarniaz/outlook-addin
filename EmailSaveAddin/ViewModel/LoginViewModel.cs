@@ -56,6 +56,13 @@ namespace EmailSaveAddin.ViewModel
             set { _isError = value;  RaisePropertyChanged(() => IsError); }
         }
 
+        private bool _showPassword;
+
+        public bool ShowPassword
+        {
+            get { return _showPassword; }
+            set { _showPassword = value; RaisePropertyChanged(() => ShowPassword); }
+        }
 
         public LoginViewModel( )
         {
@@ -91,6 +98,7 @@ namespace EmailSaveAddin.ViewModel
 
         public bool CanExecute()
         {
+            ShowPassword = !String.IsNullOrEmpty(Password);
             if (!String.IsNullOrEmpty(UserName)
                 && !String.IsNullOrEmpty(Password))
             {

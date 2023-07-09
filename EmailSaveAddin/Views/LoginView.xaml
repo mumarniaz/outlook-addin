@@ -15,6 +15,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/EmailSaveAddin;component/Resources/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            <Converters:BoolToHiddenConverter x:Key="BoolToHiddenConverter"/>
             <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
             <Converters:BoolToInverseVisibilityConverter x:Key="BoolToInverseVisibilityConverter" />
         </ResourceDictionary>
@@ -57,7 +58,7 @@
 
             <TextBox
                 Name="passwordTxtBox"
-                Width="300"
+                Width="{Binding ElementName=passwordText, Path=ActualWidth}"
                 Height="36"
                 Margin="25,5,0,0"
                 HorizontalAlignment="Left"
@@ -88,14 +89,16 @@
                 Grid.Column="1"
                 Width="Auto"
                 Height="Auto"
-                Margin="3,0,3,0"
+                Margin="-5,10,3,0"
                 Padding="0"
                 VerticalAlignment="Center"
                 Background="Transparent"
                 BorderBrush="Transparent"
-                Content="{materialDesign:PackIcon EyeSettings}"
+                Content="{materialDesign:PackIcon EyeSettingsOutline}"
+                Foreground="Gray"
                 PreviewMouseDown="Button_MouseDown"
-                PreviewMouseUp="Button_MouseUp" />
+                PreviewMouseUp="Button_MouseUp"
+                Visibility="{Binding ShowPassword, Converter={StaticResource BoolToHiddenConverter}}" />
         </Grid>
 
         <Button

@@ -55,6 +55,7 @@
                             Height="16"
                             Margin="-6,0,8,0"
                             VerticalAlignment="Center"
+                            Foreground="{TemplateBinding Foreground}"
                             IsTabStop="False"
                             ToolTip="{TemplateBinding DeleteToolTip}"
                             Visibility="{TemplateBinding IsDeletable,
@@ -68,7 +69,6 @@
                                                 Height="12"
                                                 HorizontalAlignment="Center"
                                                 VerticalAlignment="Center"
-                                                Foreground="{DynamicResource PrimaryHueMidBrush}"
                                                 Kind="Close" />
                                         </Border>
 
