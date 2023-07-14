@@ -18,10 +18,10 @@ namespace EmailSaveAddin.Services
 
             if (string.IsNullOrEmpty(searchTxt))
             {
-                return organizations;
+                return new List<string>();
             }
 
-            return organizations.Where(t => t.StartsWith(searchTxt)).ToList();
+            return organizations.Where(t => t.Contains(searchTxt)).ToList();
         }
 
         public async Task<string> GetSelectedOrgainization(string organization)

@@ -63,7 +63,8 @@
                         IsEditable="True"
                         ItemsSource="{Binding Organizations}"
                         KeyUp="ComboBox_KeyUp"
-                        SelectedItem="{Binding SelectedOrganization}" />
+                        SelectedItem="{Binding SelectedOrganization}"
+                        StaysOpenOnEdit="True" />
 
                     <StackPanel
                         Margin="0,5,0,0"

@@ -113,9 +113,11 @@ namespace EmailSaveAddin.Views
 
         private async void ComboBox_KeyUp(object sender, KeyEventArgs e)
         {
-            var text = (sender as ComboBox).Text;
-            if (text.Length > 3)
+            var cb = sender as ComboBox;
+            var text = cb.Text;
+            if (text.Length >= 3)
             {
+                cb.IsDropDownOpen = true;
                 var vm = this.DataContext as SaveEmailViewModel;
                 vm.IsActive = true;
                 await vm.LoadOrganizations(text);

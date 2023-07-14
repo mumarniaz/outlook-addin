@@ -86,14 +86,19 @@ namespace EmailSaveAddin.ViewModel
         {
             IsActive = true;
             await LoadOrganizations("");
-            await SetOrganization(Organizations[0]);
+            if (Organizations.Count > 0)
+            {
+                await SetOrganization(Organizations[0]);
+            }
+            
             IsActive = false;
         }
 
         internal async Task SetOrganization(string text)
         {
             var org = await _apiService.GetSelectedOrgainization(text);
-            if (String.IsNullOrEmpty(org))
+            if (String.IsNullOrEmpty(org) 
+                && Organizations.Count > 0)
             {
                 org = Organizations[0];
             }
