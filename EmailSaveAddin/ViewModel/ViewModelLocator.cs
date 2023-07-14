@@ -1,4 +1,5 @@
 using CommonServiceLocator;
+using EmailSaveAddin.Services;
 using GalaSoft.MvvmLight.Ioc;
 
 namespace EmailSaveAddin.ViewModel
@@ -11,6 +12,10 @@ namespace EmailSaveAddin.ViewModel
         public ViewModelLocator()
         {
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
+
+            //TODO: Register dummy service. Replace it with acutal service
+            SimpleIoc.Default.Register<IApiService, DummyApiService>();
+
             SimpleIoc.Default.Register<LoginViewModel>();
             SimpleIoc.Default.Register<SaveEmailViewModel>();
             SimpleIoc.Default.Register<MainViewModel>();

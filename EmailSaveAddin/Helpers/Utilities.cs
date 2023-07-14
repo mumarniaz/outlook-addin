@@ -13,6 +13,7 @@ namespace EmailSaveAddin.Helpers
 
         public static int TaskPaneWidth = (int)(screenWidth * TaskPaneWidthFactor);
         public static double ScrollHeight = (screenHeight * ScrollViewerHeightFactor);
+        public static bool IsSignedIn { get; set; }
 
         internal static bool IsInternalEmail(string email)
         {

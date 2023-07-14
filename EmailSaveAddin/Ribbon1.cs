@@ -5,12 +5,9 @@ using GalaSoft.MvvmLight.Messaging;
 using Microsoft.Office.Interop.Outlook;
 using Microsoft.Office.Tools;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
-using System.Text;
 using Office = Microsoft.Office.Core;
 
 
@@ -103,6 +100,10 @@ namespace EmailSaveAddin
                             && !_taskPane.Visible)
                         {
                             _taskPane.Visible = true;
+                            if (Utilities.IsSignedIn)
+                            {
+                                MessengerHelper.BroadcastMessage(new SaveEmailViewVisibleMessage());
+                            }
                         }
                         else
                         {

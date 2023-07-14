@@ -1,3 +1,4 @@
+using EmailSaveAddin.Helpers;
 using EmailSaveAddin.Messages;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Messaging;
@@ -36,9 +37,12 @@ namespace EmailSaveAddin.ViewModel
             if (obj.IsLoggedIn)
             {
                 SaveEmailViewVisible = true;
+                Utilities.IsSignedIn = true;
+                MessengerHelper.BroadcastMessage(new SaveEmailViewVisibleMessage());
             }
             else
             {
+                Utilities.IsSignedIn = false;
                 LoginViewVisible = true;
             }
         }

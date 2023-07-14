@@ -206,9 +206,12 @@
     </Compile>
     <Compile Include="Messages\ClosePaneMessage.cs" />
     <Compile Include="Messages\LoginMessage.cs" />
+    <Compile Include="Messages\SaveEmailViewVisibleMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Services\DummyApiService.cs" />
+    <Compile Include="Services\IApiService.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\SaveEmailViewModel.cs" />

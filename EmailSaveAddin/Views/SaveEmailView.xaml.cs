@@ -110,5 +110,17 @@ namespace EmailSaveAddin.Views
                 }), System.Windows.Threading.DispatcherPriority.Input);
             }
         }
+
+        private async void ComboBox_KeyUp(object sender, KeyEventArgs e)
+        {
+            var text = (sender as ComboBox).Text;
+            if (text.Length > 3)
+            {
+                var vm = this.DataContext as SaveEmailViewModel;
+                vm.IsActive = true;
+                await vm.LoadOrganizations(text);
+                vm.IsActive = false;
+            }
+        }
     }
 }
