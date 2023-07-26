@@ -9,6 +9,7 @@ using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using Office = Microsoft.Office.Core;
+using Word = Microsoft.Office.Interop.Word;
 
 
 namespace EmailSaveAddin
@@ -89,25 +90,32 @@ namespace EmailSaveAddin
                         if (outLookMailItem != null)
                         {
                             var senderEmailAddress = outLookMailItem.SenderEmailAddress;
+                            var html = outLookMailItem.HTMLBody;
 
                             if (outLookMailItem.Sender.AddressEntryUserType == Microsoft.Office.Interop.Outlook.OlAddressEntryUserType.olExchangeUserAddressEntry)
                             {
                                 senderEmailAddress = outLookMailItem.Sender.GetExchangeUser().PrimarySmtpAddress;
                             }
-                        }
 
-                        if (_taskPane != null
+                            if (_taskPane != null
                             && !_taskPane.Visible)
-                        {
-                            _taskPane.Visible = true;
-                            if (Utilities.IsSignedIn)
                             {
-                                MessengerHelper.BroadcastMessage(new SaveEmailViewVisibleMessage());
+                                _taskPane.Visible = true;
+                                if (Utilities.IsSignedIn)
+                                {
+                                    MessengerHelper.BroadcastMessage(new SaveEmailViewVisibleMessage());
+                                }
                             }
-                        }
-                        else
-                        {
-                            SetupTaskPane();
+                            else
+                            {
+                                SetupTaskPane();
+                            }
+
+                            Inspector insp = outLookMailItem.GetInspector;
+                            Word.Document wordDocMeeting = insp.WordEditor as Word.Document;
+                            wordDocMeeting.SaveAs2("meeting.rtf", Word.WdSaveFormat.wdFormatRTF);
+
+                            MessengerHelper.BroadcastMessage(new EmailBodyMessage());
                         }
                     }
                 }

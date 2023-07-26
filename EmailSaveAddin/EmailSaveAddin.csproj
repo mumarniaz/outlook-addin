@@ -120,6 +120,9 @@
     <Reference Include="MaterialDesignThemes.Wpf, Version=4.9.0.0, Culture=neutral, PublicKeyToken=df2a72020bd7962a, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialDesignThemes.4.9.0\lib\net462\MaterialDesignThemes.Wpf.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Office.Interop.Word, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="Microsoft.Xaml.Behaviors, Version=1.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Xaml.Behaviors.Wpf.1.1.39\lib\net45\Microsoft.Xaml.Behaviors.dll</HintPath>
     </Reference>
@@ -196,6 +199,7 @@
     <Compile Include="Converters\EmailToBackgroundColorConverter.cs" />
     <Compile Include="Converters\EmailToForegroundColorConverter.cs" />
     <Compile Include="Extensions\ControlExtension.cs" />
+    <Compile Include="Helpers\HtmlToRtfConverter.cs" />
     <Compile Include="Helpers\MessengerHelper.cs" />
     <Compile Include="Helpers\Utilities.cs" />
     <Compile Include="Host\TaskPaneWpfControlHost.cs">
@@ -205,6 +209,7 @@
       <DependentUpon>TaskPaneWpfControlHost.cs</DependentUpon>
     </Compile>
     <Compile Include="Messages\ClosePaneMessage.cs" />
+    <Compile Include="Messages\EmailBodyMessage.cs" />
     <Compile Include="Messages\LoginMessage.cs" />
     <Compile Include="Messages\SaveEmailViewVisibleMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">

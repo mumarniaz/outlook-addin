@@ -297,16 +297,12 @@
             </Grid>
         </Border>
 
-        <ScrollViewer
+        <RichTextBox
+            x:Name="richTextBox"
             Grid.Row="2"
             Margin="0,10"
             HorizontalScrollBarVisibility="Disabled"
-            VerticalScrollBarVisibility="Auto">
-            <TextBlock
-                Margin="0,5"
-                Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque et convallis quam, eu gravida velit. Phasellus pulvinar odio eros, sed semper velit blandit nec. Phasellus egestas faucibus convallis. Aenean quam quam, euismod at ante quis, facilisis elementum eros. Integer nec rhoncus velit. Nulla odio ligula, interdum ac nisi vel, interdum varius ligula. Integer malesuada, quam nec scelerisque porta, orci felis aliquet dolor, et placerat felis tortor id tellus. Fusce fringilla euismod magna, ut tristique lacus imperdiet sit amet. Morbi euismod eros ac ante bibendum, in ultrices odio varius. Cras mauris orci, facilisis ac felis at, tempus sollicitudin lectus. Donec et ipsum elit. Quisque luctus ornare magna. Sed malesuada, ante ac ultrices tempus, odio diam molestie tellus, sed rutrum orci dui sed odio. Mauris ac urna sit amet nisl gravida faucibus et quis elit. Morbi venenatis cursus ullamcorper. Mauris urna tellus, aliquet a libero eu, posuere tempus felis."
-                TextWrapping="Wrap" />
-        </ScrollViewer>
+            VerticalScrollBarVisibility="Auto" />
 
         <Grid Grid.Row="3">
             <Separator

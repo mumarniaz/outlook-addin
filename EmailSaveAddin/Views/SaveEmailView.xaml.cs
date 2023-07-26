@@ -1,8 +1,14 @@
-﻿using EmailSaveAddin.ViewModel;
+﻿using EmailSaveAddin.Helpers;
+using EmailSaveAddin.Messages;
+using EmailSaveAddin.ViewModel;
+using GalaSoft.MvvmLight.Messaging;
 using MaterialDesignThemes.Wpf;
 using System;
+using System.Diagnostics;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 
@@ -16,6 +22,67 @@ namespace EmailSaveAddin.Views
         public SaveEmailView()
         {
             InitializeComponent();
+
+            Messenger.Default.Register<EmailBodyMessage>(this, OnEmailBodyMessageReceived);
+
+            var vm = this.DataContext as SaveEmailViewModel;
+            if (vm != null)
+            {
+                vm.OnSave = new Action(OnSave);
+            }
+        }
+
+        private void OnSave()
+        {
+            // Create a TextRange to read the RTF content
+            try
+            {
+                TextRange textRange = new TextRange(richTextBox.Document.ContentStart, richTextBox.Document.ContentEnd);
+                // Create a FileStream to save the RTF content to a file
+                using (FileStream fileStream = new FileStream("meeting.rtf", FileMode.Create))
+                {
+                    // Save the RTF content to the file
+                    textRange.Save(fileStream, DataFormats.Rtf);
+                }
+
+                string rtf = File.ReadAllText("meeting.rtf");
+                var html = HtmlToRtfConverter.ConvertRtfToHtml(rtf);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.ToString());
+            }
+        }
+
+        private void OnEmailBodyMessageReceived(EmailBodyMessage obj)
+        {
+            try
+            {
+                // Read the RTF content from the file
+                string rtfContent = File.ReadAllText("meeting.rtf");
+
+                // Create a TextRange to read the RTF content
+                TextRange textRange = new TextRange(richTextBox.Document.ContentStart, richTextBox.Document.ContentEnd);
+
+                // Create a MemoryStream and a StreamWriter to write the RTF content
+                using (MemoryStream memoryStream = new MemoryStream())
+                using (StreamWriter streamWriter = new StreamWriter(memoryStream))
+                {
+                    // Write the RTF content to the MemoryStream
+                    streamWriter.Write(rtfContent);
+                    streamWriter.Flush();
+                    memoryStream.Position = 0;
+
+                    // Load the RTF content into the RichTextBox
+                    textRange.Load(memoryStream, DataFormats.Rtf);
+                }
+
+                File.Delete("meeting.rtf");
+            }
+            catch (System.Exception ex)
+            {
+                Debug.WriteLine($"Error loading RTF content into RichTextBox: {ex.Message}", "Error");
+            }
         }
 
         private void Chip_DeleteClick(object sender, RoutedEventArgs e)
@@ -117,11 +184,11 @@ namespace EmailSaveAddin.Views
             var text = cb.Text;
             if (text.Length >= 3)
             {
-                cb.IsDropDownOpen = true;
                 var vm = this.DataContext as SaveEmailViewModel;
                 vm.IsActive = true;
                 await vm.LoadOrganizations(text);
                 vm.IsActive = false;
+                cb.IsDropDownOpen = true;
             }
         }
     }

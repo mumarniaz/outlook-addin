@@ -50,7 +50,7 @@ namespace EmailSaveAddin.ViewModel
             set { _subject = value; RaisePropertyChanged(() => Subject); }
         }
 
-
+        public System.Action OnSave { get; set; }
 
         public SaveEmailViewModel(IApiService apiService)
         {
@@ -131,6 +131,7 @@ namespace EmailSaveAddin.ViewModel
 
         public void ExecuteSaveCommand()
         {
+            OnSave();
             MessageBox.Show("Saved successfully!", "Addin", MessageBoxButtons.OK, MessageBoxIcon.Information);
             MessengerHelper.BroadcastMessage(new ClosePaneMessage());
         }
