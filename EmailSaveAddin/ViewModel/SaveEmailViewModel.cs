@@ -1,5 +1,6 @@
 ﻿using EmailSaveAddin.Helpers;
 using EmailSaveAddin.Messages;
+using EmailSaveAddin.Models;
 using EmailSaveAddin.Services;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
@@ -14,9 +15,9 @@ namespace EmailSaveAddin.ViewModel
 {
     public class SaveEmailViewModel : ViewModelBase
     {
-        public ObservableCollection<string> From { get; set; }
-        public ObservableCollection<string> To { get; set; }
-        public ObservableCollection<string> Cc { get; set; }
+        public ObservableCollection<Contact> From { get; set; }
+        public ObservableCollection<Contact> To { get; set; }
+        public ObservableCollection<Contact> Cc { get; set; }
 
         private IApiService _apiService;
 
@@ -54,19 +55,46 @@ namespace EmailSaveAddin.ViewModel
 
         public SaveEmailViewModel(IApiService apiService)
         {
-            From = new ObservableCollection<string>()
+            From = new ObservableCollection<Contact>()
             {
-                "uniaz@gmail.com"
+                new Contact()
+                {
+                    Email = "uniaz@gmail.com",
+                    FirstName = "Umar",
+                    LastName = "Niaz"
+                }
             };
 
-            To = new ObservableCollection<string>()
+            To = new ObservableCollection<Contact>()
             {
-                "Tarun Kapoor", "jason@gmail.com"
+                new Contact()
+                {
+                    FirstName = "Tarun",
+                    LastName = "Kapoor",
+                    Email = "tarun.kapoor@gmail.com"
+                },
+                new Contact() 
+                {
+                    FirstName = "Jason",
+                    LastName = "Moor",
+                    Email = "jason@gmail.com"
+                }
             };
 
-            Cc = new ObservableCollection<string>()
+            Cc = new ObservableCollection<Contact>()
             {
-                "Rudy Hobson", "Tom Cleavland"
+                new Contact()
+                {
+                    FirstName = "Rudy",
+                    LastName = "Hobson",
+                    Email = "rudy.hobson@gmail.com"
+                },
+                new Contact()
+                {
+                    FirstName = "Tom",
+                    LastName = "Cleavland",
+                    Email = "tom.cleavland@gmail.com"
+                }
             };
 
             Organizations = new ObservableCollection<string>();
@@ -80,6 +108,12 @@ namespace EmailSaveAddin.ViewModel
             LogoutCommand = new RelayCommand(ExecuteLogoutCommand);
 
             Messenger.Default.Register<SaveEmailViewVisibleMessage>(this, OnSaveEmailViewVisibleMessageReceived);
+            Messenger.Default.Register<ValidateContactMessage>(this, OnValidateContactMessageReceived);
+        }
+
+        private void OnValidateContactMessageReceived(ValidateContactMessage message)
+        {
+            var contact = message.Contact;
         }
 
         private async void OnSaveEmailViewVisibleMessageReceived(SaveEmailViewVisibleMessage obj)

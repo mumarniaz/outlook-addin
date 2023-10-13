@@ -16,6 +16,8 @@
             </ResourceDictionary.MergedDictionaries>
             <Converters:EmailToBackgroundColorConverter x:Key="EmailToBackgroundColorConverter" />
             <Converters:EmailToForegroundColorConverter x:Key="EmailToForegroundColorConverter" />
+            <Converters:EmailToBooleanConverter x:Key="EmailToBooleanConverter" />
+            <Converters:ContactToStringConverter x:Key="ContactToStringConverter" />
         </ResourceDictionary>
     </UserControl.Resources>
 
@@ -149,13 +151,13 @@
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
                                         <materialDesign:Chip
-                                            Background="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Content, Converter={StaticResource EmailToBackgroundColorConverter}}"
-                                            Content="{Binding}"
-                                            DeleteClick="Chip_DeleteClick"
+                                            Background="{Binding ., Converter={StaticResource EmailToBackgroundColorConverter}}"
+                                            Content="{Binding ., Converter={StaticResource ContactToStringConverter}}"
+                                            DeleteClick="Chip_AddClick"
                                             Focusable="False"
                                             FontSize="10"
-                                            Foreground="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Content, Converter={StaticResource EmailToForegroundColorConverter}}"
-                                            IsDeletable="True"
+                                            Foreground="{Binding ., Converter={StaticResource EmailToForegroundColorConverter}}"
+                                            IsDeletable="{Binding ., Converter={StaticResource EmailToBooleanConverter}}"
                                             Style="{StaticResource CustomChipStyle}"
                                             Tag="FROM" />
                                     </DataTemplate>
@@ -213,13 +215,13 @@
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
                                         <materialDesign:Chip
-                                            Background="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Content, Converter={StaticResource EmailToBackgroundColorConverter}}"
-                                            Content="{Binding}"
-                                            DeleteClick="Chip_DeleteClick"
+                                            Background="{Binding ., Converter={StaticResource EmailToBackgroundColorConverter}}"
+                                            Content="{Binding ., Converter={StaticResource ContactToStringConverter}}"
+                                            DeleteClick="Chip_AddClick"
                                             Focusable="False"
                                             FontSize="10"
-                                            Foreground="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Content, Converter={StaticResource EmailToForegroundColorConverter}}"
-                                            IsDeletable="True"
+                                            Foreground="{Binding ., Converter={StaticResource EmailToForegroundColorConverter}}"
+                                            IsDeletable="{Binding ., Converter={StaticResource EmailToBooleanConverter}}"
                                             Style="{StaticResource CustomChipStyle}"
                                             Tag="TO" />
                                     </DataTemplate>
@@ -277,13 +279,13 @@
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
                                         <materialDesign:Chip
-                                            Background="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Content, Converter={StaticResource EmailToBackgroundColorConverter}}"
-                                            Content="{Binding}"
-                                            DeleteClick="Chip_DeleteClick"
+                                            Background="{Binding ., Converter={StaticResource EmailToBackgroundColorConverter}}"
+                                            Content="{Binding ., Converter={StaticResource ContactToStringConverter}}"
+                                            DeleteClick="Chip_AddClick"
                                             Focusable="False"
                                             FontSize="10"
-                                            Foreground="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Content, Converter={StaticResource EmailToForegroundColorConverter}}"
-                                            IsDeletable="True"
+                                            Foreground="{Binding ., Converter={StaticResource EmailToForegroundColorConverter}}"
+                                            IsDeletable="{Binding ., Converter={StaticResource EmailToBooleanConverter}}"
                                             Style="{StaticResource CustomChipStyle}"
                                             Tag="CC" />
                                     </DataTemplate>

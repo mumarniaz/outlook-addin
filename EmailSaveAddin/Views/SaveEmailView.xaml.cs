@@ -1,9 +1,11 @@
 ﻿using EmailSaveAddin.Helpers;
 using EmailSaveAddin.Messages;
+using EmailSaveAddin.Models;
 using EmailSaveAddin.ViewModel;
 using GalaSoft.MvvmLight.Messaging;
 using MaterialDesignThemes.Wpf;
 using System;
+using System.Data;
 using System.Diagnostics;
 using System.IO;
 using System.Windows;
@@ -85,37 +87,22 @@ namespace EmailSaveAddin.Views
             }
         }
 
-        private void Chip_DeleteClick(object sender, RoutedEventArgs e)
+        private void Chip_AddClick(object sender, RoutedEventArgs e)
         {
             var chip = (sender as Chip);
-            var presener = VisualTreeHelper.GetParent(chip);
-            if (presener != null)
-            {
-                var wrapPanel = VisualTreeHelper.GetParent(presener);
-                if (wrapPanel != null)
-                {
-                    var vm = (wrapPanel as WrapPanel).DataContext as SaveEmailViewModel;
-                    var tag = chip.Tag.ToString();
-                    if (tag == "TO")
-                    {
-                        vm.To.Remove(chip.DataContext.ToString());
-                    }
-                    else if (tag == "CC")
-                    {
-                        vm.Cc.Remove(chip.DataContext.ToString());
-                    }
-                    else
-                    {
-                        vm.From.Remove(chip.DataContext.ToString());
+            var contact= chip.DataContext as Contact;
 
-                    }
-                }
-            }
+            MessengerHelper.BroadcastMessage(new AddContactMessage());
+
+            MessengerHelper.BroadcastMessage(new ContactMessage()
+            {
+                Contact = contact
+            });
         }
 
         private void TextBox_PreviewKeyUp(object sender, System.Windows.Input.KeyEventArgs e)
         {
-            if (e.Key == System.Windows.Input.Key.Enter)
+            if (e.Key == Key.Enter)
             {
                 Add(sender, e.Key == Key.OemSemicolon);
             }
@@ -127,7 +114,32 @@ namespace EmailSaveAddin.Views
             if (e.Key == Key.Back)
             {
                 var textBox = sender as TextBox;
-
+                if (String.IsNullOrEmpty(textBox.Text))
+                {
+                    // Textbox is empty, now see if we have answers then clear the last one from list
+                    var vm = textBox.DataContext as SaveEmailViewModel;
+                    if (textBox.Name == "fromTxtbox")
+                    {
+                        if (vm.From.Count > 0)
+                        {
+                            vm.From.RemoveAt(vm.From.Count - 1);
+                        }
+                    }
+                    else if (textBox.Name == "toTxtbox")
+                    {
+                        if (vm.To.Count > 0)
+                        {
+                            vm.To.RemoveAt(vm.To.Count - 1);
+                        }
+                    }
+                    else
+                    {
+                        if (vm.Cc.Count > 0)
+                        {
+                            vm.Cc.RemoveAt(vm.Cc.Count - 1);
+                        }
+                    }
+                }
             }
         }
 
@@ -148,17 +160,21 @@ namespace EmailSaveAddin.Views
                 }
 
                 var vm = this.DataContext as SaveEmailViewModel;
+                var contact = new Contact()
+                {
+                    Email = text,
+                };
                 if (textBox.Name == "fromTxtbox")
                 {
-                    vm.From.Add(text);
+                    vm.From.Add(contact);
                 }
                 else if (textBox.Name == "toTxtbox")
                 {
-                    vm.To.Add(text);
+                    vm.To.Add(contact);
                 }
                 else
                 {
-                    vm.Cc.Add(text);
+                    vm.Cc.Add(contact);
                 }
                 textBox.Text = "";
             }

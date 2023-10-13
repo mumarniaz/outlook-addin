@@ -22,11 +22,15 @@
     </UserControl.DataContext>
     <Grid Background="White">
         <Grid Grid.Row="1" Visibility="{Binding LoginViewVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
-            <local:LoginView x:Name="loginView" Margin="20,100,20,10" />
+            <local:LoginView Margin="20,100,20,10" />
         </Grid>
 
         <Grid Grid.Row="1" Visibility="{Binding SaveEmailViewVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
-            <local:SaveEmailView x:Name="saveEmail" Margin="20,20,20,10" />
+            <local:SaveEmailView Margin="20,20,20,10" />
+        </Grid>
+
+        <Grid Grid.Row="1" Visibility="{Binding SaveContactViewVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <local:SaveContactView Margin="20,20,20,10" />
         </Grid>
     </Grid>
 </UserControl>

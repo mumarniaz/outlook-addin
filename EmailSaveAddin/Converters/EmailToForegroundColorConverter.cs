@@ -1,6 +1,6 @@
 ﻿using EmailSaveAddin.Helpers;
+using EmailSaveAddin.Models;
 using System;
-using System.Drawing;
 using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Media;
@@ -11,9 +11,9 @@ namespace EmailSaveAddin.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var email = value.ToString();
+            Contact contact = (Contact)value;
             // here check if email is a part of database emails list then return blue color. TODO: Remove hard coded list
-            if (Utilities.IsInternalEmail(email))
+            if (Utilities.IsInternalContact(contact))
             {
                 return new SolidColorBrush(Colors.White);
             }

@@ -14,7 +14,7 @@ namespace EmailSaveAddin.Services
                 "Meta Pvt Ltd", "Shell Holding", "Total Petroleum", "Attock Holding LLC"
             };
 
-            await Task.Delay(1000);
+            await Task.Delay(10);
 
             if (string.IsNullOrEmpty(searchTxt))
             {
@@ -32,7 +32,7 @@ namespace EmailSaveAddin.Services
                 "Meta Pvt Ltd", "Shell Holding", "Total Petroleum", "Attock Holding LLC"
             };
 
-            await Task.Delay(1000);
+            await Task.Delay(10);
 
             return organizations.FirstOrDefault(t => t == organization);
         }

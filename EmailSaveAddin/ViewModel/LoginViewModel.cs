@@ -112,7 +112,7 @@ namespace EmailSaveAddin.ViewModel
             IsError = false;
             IsActive = true;
 
-            await Task.Delay(2000);
+            await Task.Delay(20);
 
             if (Password == "1234")
             {

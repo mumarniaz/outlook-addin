@@ -3,11 +3,10 @@ using EmailSaveAddin.Models;
 using System;
 using System.Globalization;
 using System.Windows.Data;
-using System.Windows.Media;
 
 namespace EmailSaveAddin.Converters
 {
-    public class EmailToBackgroundColorConverter : IValueConverter
+    public class EmailToBooleanConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -15,9 +14,9 @@ namespace EmailSaveAddin.Converters
             // here check if email is a part of database emails list then return blue color. TODO: Remove hard coded list
             if (Utilities.IsInternalContact(contact))
             {
-                return new SolidColorBrush((Color)ColorConverter.ConvertFromString("#168EFF"));
+                return false;
             }
-            return new SolidColorBrush(Colors.LightGray);
+            return true;
 
         }
 

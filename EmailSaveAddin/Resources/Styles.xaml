@@ -51,6 +51,7 @@
                         <Button
                             x:Name="PART_DeleteButton"
                             Grid.Column="2"
+                            Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
                             Width="16"
                             Height="16"
                             Margin="-6,0,8,0"
@@ -69,7 +70,8 @@
                                                 Height="12"
                                                 HorizontalAlignment="Center"
                                                 VerticalAlignment="Center"
-                                                Kind="Close" />
+                                                Foreground="#168EFF"
+                                                Kind="CirclesAdd" />
                                         </Border>
 
                                     </Grid>

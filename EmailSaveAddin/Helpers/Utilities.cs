@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using EmailSaveAddin.Models;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace EmailSaveAddin.Helpers
@@ -15,7 +17,7 @@ namespace EmailSaveAddin.Helpers
         public static double ScrollHeight = (screenHeight * ScrollViewerHeightFactor);
         public static bool IsSignedIn { get; set; }
 
-        internal static bool IsInternalEmail(string email)
+        internal static bool IsInternalContact(string email)
         {
             List<string> list = new List<string>() 
             {
@@ -24,6 +26,27 @@ namespace EmailSaveAddin.Helpers
             };
 
             return list.Contains(email);
+        }
+
+        internal static bool IsInternalContact(Contact contact)
+        {
+            List<Contact> list = new List<Contact>()
+            {
+                new Contact()
+                {
+                    FirstName = "Tarun",
+                    LastName = "Kapoor",
+                    Email = "tarun.kapoor@gmail.com"
+                },
+                new Contact()
+                {
+                    FirstName = "Tom",
+                    LastName = "Cleavland",
+                    Email = "tom.cleavland@gmail.com"
+                }
+            };
+
+            return list.Any(t => t.Equals(contact));
         }
     }
 }

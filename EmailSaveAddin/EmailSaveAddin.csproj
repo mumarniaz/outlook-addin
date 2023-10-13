@@ -196,7 +196,9 @@
   <ItemGroup>
     <Compile Include="Converters\BoolToHiddenConverter.cs" />
     <Compile Include="Converters\BoolToInverseVisibilityConverter.cs" />
+    <Compile Include="Converters\ContactToStringConverter.cs" />
     <Compile Include="Converters\EmailToBackgroundColorConverter.cs" />
+    <Compile Include="Converters\EmailToBooleanConverter.cs" />
     <Compile Include="Converters\EmailToForegroundColorConverter.cs" />
     <Compile Include="Extensions\ControlExtension.cs" />
     <Compile Include="Helpers\HtmlToRtfConverter.cs" />
@@ -208,10 +210,15 @@
     <Compile Include="Host\TaskPaneWpfControlHost.Designer.cs">
       <DependentUpon>TaskPaneWpfControlHost.cs</DependentUpon>
     </Compile>
+    <Compile Include="Messages\AddContactMessage.cs" />
     <Compile Include="Messages\ClosePaneMessage.cs" />
+    <Compile Include="Messages\ContactMessage.cs" />
+    <Compile Include="Messages\ContactSavedMessage.cs" />
     <Compile Include="Messages\EmailBodyMessage.cs" />
     <Compile Include="Messages\LoginMessage.cs" />
     <Compile Include="Messages\SaveEmailViewVisibleMessage.cs" />
+    <Compile Include="Messages\ValidateContactMessage.cs" />
+    <Compile Include="Models\Contact.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -219,6 +226,7 @@
     <Compile Include="Services\IApiService.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\SaveContactViewModel.cs" />
     <Compile Include="ViewModel\SaveEmailViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="Views\LoginView.xaml.cs">
@@ -226,6 +234,9 @@
     </Compile>
     <Compile Include="Views\MainPanel.xaml.cs">
       <DependentUpon>MainPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SaveContactView.xaml.cs">
+      <DependentUpon>SaveContactView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SaveEmailView.xaml.cs">
       <DependentUpon>SaveEmailView.xaml</DependentUpon>
@@ -278,6 +289,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\MainPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SaveContactView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

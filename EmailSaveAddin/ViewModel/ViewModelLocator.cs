@@ -18,6 +18,7 @@ namespace EmailSaveAddin.ViewModel
 
             SimpleIoc.Default.Register<LoginViewModel>();
             SimpleIoc.Default.Register<SaveEmailViewModel>();
+            SimpleIoc.Default.Register<SaveContactViewModel>();
             SimpleIoc.Default.Register<MainViewModel>();
             
         }
@@ -43,6 +44,14 @@ namespace EmailSaveAddin.ViewModel
             get
             {
                 return ServiceLocator.Current.GetInstance<SaveEmailViewModel>();
+            }
+        }
+
+        public SaveContactViewModel SaveContact
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<SaveContactViewModel>();
             }
         }
 
