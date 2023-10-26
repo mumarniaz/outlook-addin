@@ -196,6 +196,7 @@
   <ItemGroup>
     <Compile Include="Converters\BoolToHiddenConverter.cs" />
     <Compile Include="Converters\BoolToInverseVisibilityConverter.cs" />
+    <Compile Include="Converters\CheckboxToStringConverter.cs" />
     <Compile Include="Converters\ContactToStringConverter.cs" />
     <Compile Include="Converters\EmailToBackgroundColorConverter.cs" />
     <Compile Include="Converters\EmailToBooleanConverter.cs" />
@@ -218,6 +219,7 @@
     <Compile Include="Messages\LoginMessage.cs" />
     <Compile Include="Messages\SaveEmailViewVisibleMessage.cs" />
     <Compile Include="Messages\ValidateContactMessage.cs" />
+    <Compile Include="Models\Choice.cs" />
     <Compile Include="Models\Contact.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

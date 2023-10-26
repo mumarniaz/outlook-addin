@@ -5,6 +5,7 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using System;
+using System.Collections.ObjectModel;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
@@ -40,6 +41,18 @@ namespace EmailSaveAddin.ViewModel
             set { _email = value; RaisePropertyChanged(() => Email); SaveCommand.RaiseCanExecuteChanged(); }
         }
 
+        public ObservableCollection<Choice> Choices { get; set; }
+
+        private Choice _selectedChoice;
+        public Choice SelectedChoice
+        {
+            get { return _selectedChoice; }
+            set
+            {
+                _selectedChoice = value;
+                RaisePropertyChanged(() => SelectedChoice);
+            }
+        }
 
         public SaveContactViewModel()
         {
@@ -47,6 +60,25 @@ namespace EmailSaveAddin.ViewModel
             CancelCommand = new RelayCommand(ExecuteCancelCommand);
 
             Messenger.Default.Register<ContactMessage>(this, OnContactMessageReceived);
+
+            Choices = new ObservableCollection<Choice>()
+            {
+                new Choice()
+                {
+                    Option = "Test 1",
+                    IsSelected = false
+                },
+                new Choice()
+                {
+                    Option = "Test 2",
+                    IsSelected = false
+                },
+                new Choice()
+                {
+                    Option = "Test 3",
+                    IsSelected = false
+                }
+            };
         }
 
         private void OnContactMessageReceived(ContactMessage message)
