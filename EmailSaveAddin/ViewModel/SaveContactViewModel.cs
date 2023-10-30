@@ -65,17 +65,27 @@ namespace EmailSaveAddin.ViewModel
             {
                 new Choice()
                 {
-                    Option = "Test 1",
+                    Option = "LLC Organization",
                     IsSelected = false
                 },
                 new Choice()
                 {
-                    Option = "Test 2",
+                    Option = "Shell Company Ltd.",
                     IsSelected = false
                 },
                 new Choice()
                 {
-                    Option = "Test 3",
+                    Option = "M&M Private Ltd.",
+                    IsSelected = false
+                },
+                new Choice()
+                {
+                    Option = "Shell Company Ltd.",
+                    IsSelected = false
+                },
+                new Choice()
+                {
+                    Option = "M&M Private Ltd.",
                     IsSelected = false
                 }
             };

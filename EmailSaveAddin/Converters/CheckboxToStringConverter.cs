@@ -2,6 +2,7 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Globalization;
+using System.Linq;
 using System.Windows.Data;
 
 namespace EmailSaveAddin.Converters
@@ -12,12 +13,7 @@ namespace EmailSaveAddin.Converters
         {
             string s = "";
             var options = (ObservableCollection<Choice>)values[0];
-            foreach (var option in options)
-            {
-                if (option.IsSelected)
-                    s += option.Option + ",";
-            }
-            return s.TrimEnd(',');
+            return options.Where(t => t.IsSelected);
         }
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)

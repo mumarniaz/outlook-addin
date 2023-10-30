@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:Converters="clr-namespace:EmailSaveAddin.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:wpf="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
     d:DesignHeight="450"
@@ -124,14 +125,29 @@
                                     Click="Cb_Click"
                                     Content="{Binding Option}"
                                     IsChecked="{Binding IsSelected, Mode=TwoWay}" />
-                                <TextBlock x:Name="correctTb" Visibility="Collapsed">
-                                    <TextBlock.Text>
+                                <ItemsControl x:Name="correctTb" Visibility="Collapsed">
+                                    <ItemsControl.ItemsSource>
                                         <MultiBinding Converter="{StaticResource CheckboxToStringConverter}">
                                             <Binding Path="DataContext.Choices" RelativeSource="{RelativeSource AncestorType={x:Type ComboBox}}" />
                                             <Binding Path="DataContext.SelectedChoice" RelativeSource="{RelativeSource AncestorType={x:Type ComboBox}}" />
                                         </MultiBinding>
-                                    </TextBlock.Text>
-                                </TextBlock>
+                                    </ItemsControl.ItemsSource>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <materialDesign:Chip
+                                                Background="LightGray"
+                                                Content="{Binding Option}"
+                                                FontSize="10"
+                                                IsDeletable="False"
+                                                Style="{StaticResource CustomChipStyle}"/>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <WrapPanel Orientation="Horizontal" />
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                </ItemsControl>
                             </Grid>
                             <DataTemplate.Triggers>
                                 <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ComboBoxItem}}}" Value="{x:Null}">
